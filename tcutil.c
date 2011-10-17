@@ -5695,7 +5695,7 @@ static void tcrandomfdclose(void){
    `tm' specifies the pointer to the time structure.
    The return value is the GMT. */
 static time_t tcmkgmtime(struct tm *tm){
-#if defined(_SYS_LINUX_)
+#if defined(_SYS_LINUX_) && !defined(__ANDROID__)
   assert(tm);
   return timegm(tm);
 #else
