@@ -1,4 +1,7 @@
 /*
+ * Natanael Arndt, 2011: removed collate.h dependencies
+ *  (my changes are trivial)
+ *
  * Copyright (c) 1989, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -86,8 +89,6 @@ __FBSDID("$FreeBSD$");
 #include <string.h>
 #include <unistd.h>
 #include <wchar.h>
-
-#include "collate.h"
 
 #define	DOLLAR		'$'
 #define	DOT		'.'
@@ -775,12 +776,7 @@ match(Char *name, Char *pat, Char *patend)
 				++pat;
 			while (((c = *pat++) & M_MASK) != M_END)
 				if ((*pat & M_MASK) == M_RNG) {
-					if (__collate_load_error ?
-					    CHAR(c) <= CHAR(k) && CHAR(k) <= CHAR(pat[1]) :
-					       __collate_range_cmp(CHAR(c), CHAR(k)) <= 0
-					    && __collate_range_cmp(CHAR(k), CHAR(pat[1])) <= 0
-					   )
-						ok = 1;
+					if (CHAR(c) <= CHAR(k) && CHAR(k) <= CHAR(pat[1])) ok = 1;
 					pat += 2;
 				} else if (c == k)
 					ok = 1;
