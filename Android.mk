@@ -2,11 +2,10 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE        	:= tokyocabinet
+LOCAL_MODULE        	:= libtokyocabinet
 LOCAL_SRC_FILES     	:= tcutil.c tchdb.c tcbdb.c tcfdb.c tctdb.c tcadb.c myconf.c md5.c glob.c
-LOCAL_LDLIBS        	:= -lz -lm
-LOCAL_CFLAGS        	:= -std=c99 -Wall -fPIC -fsigned-char -O2 -lz -lm -D_MYNOBZIP
-LOCAL_SHARED_LIBRARIES	+= bz
-
+LOCAL_CFLAGS        	:= -std=c99 -D_MYNOBZIP
+LOCAL_C_INCLUDES	+= external/zlib
+LOCAL_SHARED_LIBRARIES	+= libz
+LOCAL_MODULE_TAGS 	:= optional
 include $(BUILD_SHARED_LIBRARY)
-
